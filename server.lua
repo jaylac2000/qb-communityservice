@@ -52,7 +52,7 @@ RegisterServerEvent('qb-communityservice:server:checkIfSentenced')
 AddEventHandler('qb-communityservice:server:checkIfSentenced', function()
     local src = source
     local citizenid = QBCore.Functions.GetPlayer(src).PlayerData.citizenid
-    local result = exports.oxmysql:fetchSync('SELECT * FROM communityservice WHERE citizenid = ?', {citizenid})
+    local result = MySQL.Sync.fetchAll('SELECT * FROM communityservice WHERE citizenid = ?', {citizenid})
     if result[1] ~= nil and result[1].actions_remaining > 0 then
         TriggerClientEvent('qb-communityservice:client:inCommunityService', src, tonumber(result[1].actions_remaining))
     end
@@ -77,7 +77,7 @@ AddEventHandler('qb-communityservice:server:sendToCommunityService', function(ta
     local Ply = QBCore.Functions.GetPlayer(target)
     local citizenid = Ply.PlayerData.citizenid
     
-    exports.oxmysql:insert('INSERT INTO communityservice (citizenid, actions_remaining) VALUES (?, ?) ON DUPLICATE KEY UPDATE actions_remaining = ?', {citizenid, actions_count})
+    MySQL.Async.insert('INSERT INTO communityservice (citizenid, actions_remaining) VALUES (?, ?) ON DUPLICATE KEY UPDATE actions_remaining = ?', {citizenid, actions_count})
     TriggerClientEvent('qb-communityservice:client:inCommunityService', target, actions_count)
 end)
 
