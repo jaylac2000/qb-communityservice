@@ -22,7 +22,7 @@ QBCore.Commands.Add('comserv', 'Send To Community Service', {{name='id', help='T
     else
         TriggerClientEvent('QBCore:Notify', source, 'You are not a police officer', 'error')
     end
-end)
+end, 'admin')
 
 QBCore.Commands.Add('endcomserv', 'End Community Service', {{name='id', help='Target ID'}}, true, function(source, args)
     local src = source
@@ -38,7 +38,7 @@ QBCore.Commands.Add('endcomserv', 'End Community Service', {{name='id', help='Ta
     else
         TriggerClientEvent('QBCore:Notify', source, 'You are not a police officer', 'error')
     end
-end)
+end, 'admin')
 
 RegisterServerEvent('qb-communityservice:server:finishCommunityService')
 AddEventHandler('qb-communityservice:server:finishCommunityService', function(source)
