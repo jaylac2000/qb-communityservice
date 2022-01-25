@@ -35,7 +35,7 @@ AddEventHandler('qb-communityservice:client:inCommunityService', function(action
         if IsPedInAnyVehicle(playerPed, false) then
             ClearPedTasksImmediately(playerPed)
         end
-        Citizen.Wait(20000)
+        Wait(20000)
         if #(pCoords - Config.ServiceLocation) > 45 then
             SetEntityCoords(playerPed, Config.ServiceLocation.x, Config.ServiceLocation.y, Config.ServiceLocation.z)
             TriggerServerEvent('qb-communityservice:server:extendService')
@@ -54,7 +54,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         ::start_over::
-        Citizen.Wait(1)
+        Wait(1)
         if actionsRemaining > 0 and isSentenced then
             Draw2DText('Actions Remaining: '..actionsRemaining, {0.175, 0.955})
             DrawAvailableActions()
@@ -83,7 +83,7 @@ Citizen.CreateThread(function()
                 end
             end
         else
-            Citizen.Wait(1000)
+            Wait(1000)
         end
     end
 end)
